@@ -17,18 +17,16 @@ It's set up to work with [Homeassistant's MQTT discovery](https://www.home-assis
 
 ### Configuring Savant
 
-Because managing state is faster than making service requests, we'll want to use
-triggers to update our lights.
+Because managing state needs offical softwares from Savant which I doesn't have, 
+so I changed to use service request argument.
 
 #### Required Workflows for Triggers
 
 Steps:
 - View Services
 - Pick the service where you need lights to match state
-- Create a new Service Request (naming convention: `DimmerSetVariable_{Address2}_{Address1}`
-- Double click the service to open in automator
-- Savant Action Argument Setter as step 1 with DimmerLevel from State Center and
-    Value of `userDefined.SetDimmerLevel_{Address2}_{Address1}`
+- Find the service request name of each zones, and pick the service name and the request name.
+    E.g. `Study-Lighting-Lighting_controller-1-SVC_ENV_LIGHTING-DimmerSet`
 - Main action with DimmerSet on Lighting Controller Source
 
 #### Triggers
@@ -55,4 +53,5 @@ rm tmp.json tmp.plist
 
 ## Shout-outs
 
+Thanks to original version [berfarah/savant.mqtt](https://github.com/berfarah/savant.mqtt)
 Thanks to [this guide](https://levelup.gitconnected.com/how-to-use-mqtt-with-go-89c617915774) for making it easy to get up and running with MQTT in Go!

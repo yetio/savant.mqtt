@@ -6,9 +6,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/berfarah/savant.mqtt/config"
-	"github.com/berfarah/savant.mqtt/savant"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/yetio/savant.mqtt/config"
+	"github.com/yetio/savant.mqtt/savant"
 )
 
 type Server struct {

@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/berfarah/savant.mqtt/config"
 	"github.com/stretchr/testify/assert"
+	"github.com/yetio/savant.mqtt/config"
 )
 
 func TestLightsManager_Poll(t *testing.T) {

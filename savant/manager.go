@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 
-	"github.com/berfarah/savant.mqtt/config"
+	"github.com/yetio/savant.mqtt/config"
 )
 
 type LightsManagerOptions struct {
@@ -72,11 +73,17 @@ func (l LightsManager) refreshState() error {
 
 	for i, state := range states {
 		id := l.ids[i]
-		level, err := strconv.ParseFloat(state, 2)
-		if err != nil {
-			fmt.Println("Invalid state:", err)
+		ll := 0
+		if state != "" {
+			level, err := strconv.ParseFloat(state, 2)
+			if err != nil {
+				fmt.Println("Invalid state :", err)
+				level = 0
+			}
+			ll = int(level)
 		}
-		l.setState(id, int(level))
+
+		l.setState(id, ll)
 	}
 
 	return nil
@@ -98,13 +105,32 @@ func (l LightsManager) runPoller(ctx context.Context, interval time.Duration) {
 }
 
 func (l LightsManager) batchSend(changes []StateChange) {
-	var args []string
+
 	for _, change := range changes {
-		args = append(args, l.Lights[change.ID].WriteStateName, strconv.Itoa(change.Level))
+		var args []string
+		//change writestate to service request due to no Savant Racepoint or Blueprint software
+		addressArr := strings.Split(change.ID, "_")
+		// dimmer on/off/set brightness; no-dimmer on
+		if l.Lights[change.ID].IsCurtain {
+			args = append(args, l.Lights[change.ID].WriteServiceRequest, "Address1", addressArr[0], "Address2",
+				addressArr[1], "Address3", addressArr[2], "Address4", addressArr[3],
+				"ShadeLevel", strconv.Itoa(change.Level))
+		} else if l.Lights[change.ID].IsDimmer || change.Level > 0 {
+			args = append(args, l.Lights[change.ID].WriteServiceRequest, "Address1", addressArr[0], "Address2",
+				addressArr[1], "Address3", addressArr[2],
+				"DimmerLevel", strconv.Itoa(change.Level))
+		} else {
+			args = append(args, l.Lights[change.ID].WriteServiceRequestOff, "Address1", addressArr[0], "Address2",
+				addressArr[1], "Address3", addressArr[2])
+		}
+		log.Println("DEBUG: Try to write state:", change.ID, args, l.Lights[change.ID].IsDimmer)
+		if _, err := scliClient.Run("servicerequestcommand", args...); err != nil {
+			log.Println("Failed to write state:", err.Error())
+		}
 	}
-	if _, err := scliClient.Run("writestate", args...); err != nil {
-		log.Println("Failed to write state:", err.Error())
-	}
+	//if _, err := scliClient.Run("writestate", args...); err != nil {
+	//	log.Println("Failed to write state:", err.Error())
+	//}
 
 	for _, change := range changes {
 		l.stateCh <- change

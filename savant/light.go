@@ -25,14 +25,17 @@ func fromJSON(filepath string) ([]*Light, error) {
 }
 
 type Light struct {
-	ID             string `json:"id"`
-	Zone           string `json:"zone"`
-	Name           string `json:"name"`
-	IsDimmer       bool   `json:"is_dimmer"`
-	ReadStateName  string `json:"read_state_name"`
-	WriteStateName string `json:"write_state_name"`
-	Level          int    `json:"-"`
-	shortName      string `json:"-"`
+	ID                     string `json:"id"`
+	Zone                   string `json:"zone"`
+	Name                   string `json:"name"`
+	IsDimmer               bool   `json:"is_dimmer"`
+	IsCurtain              bool   `json:"is_curtain"`
+	ReadStateName          string `json:"read_state_name"`
+	WriteStateName         string `json:"write_state_name"`
+	WriteServiceRequest    string `json:"service_request"`
+	WriteServiceRequestOff string `json:"service_request_off"`
+	Level                  int    `json:"-"`
+	shortName              string `json:"-"`
 }
 
 var spacersRegex = regexp.MustCompile(`[ \-_/]`)

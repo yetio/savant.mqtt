@@ -1,4 +1,4 @@
-module github.com/berfarah/savant.mqtt
+module github.com/yetio/savant.mqtt
 
 go 1.19
 

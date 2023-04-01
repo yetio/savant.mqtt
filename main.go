@@ -5,10 +5,10 @@ import (
 	"flag"
 	"log"
 
-	"github.com/berfarah/savant.mqtt/config"
-	server "github.com/berfarah/savant.mqtt/mqtt"
-	"github.com/berfarah/savant.mqtt/savant"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/yetio/savant.mqtt/config"
+	server "github.com/yetio/savant.mqtt/mqtt"
+	"github.com/yetio/savant.mqtt/savant"
 )
 
 func main() {

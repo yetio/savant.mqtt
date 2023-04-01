@@ -37,6 +37,8 @@ type Input struct {
 	Zone       string `json:"zone"`
 	ButtonName string `json:"button_name"`
 	Address1   string `json:"address_1"`
+	Address2   string `json:"address_2"`
+	Address3   string `json:"address_3"`
 	IsDimmer   bool   `json:"is_dimmer"`
 }
 
@@ -57,7 +59,7 @@ func dimmerText(i Input) string {
 								<key>RPMServicePasteboardServiceStateKey</key>
 								<string></string>
 								<key>Request</key>
-								<string>DimmerSetVariable_1_` + i.Address1 + `</string>
+								<string>DimmerSetVariable_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 								<key>Request Data</key>
 								<dict/>
 								<key>Service Type</key>
@@ -77,11 +79,11 @@ func dimmerText(i Input) string {
 					<array>
 						<dict>
 							<key>RPMStateName</key>
-							<string>userDefined.SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>userDefined.SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>RPMStateType</key>
 							<string>RPMBasicStateName</string>
 							<key>State Name</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>State Scope</key>
 							<string>userDefined</string>
 							<key>State Type</key>
@@ -91,7 +93,7 @@ func dimmerText(i Input) string {
 							<key>scope</key>
 							<string>userDefined</string>
 							<key>stateName</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 						</dict>
 					</array>
 				</dict>
@@ -115,7 +117,9 @@ func switchText(i Input) string {
 									<key>Address1</key>
 									<string>` + i.Address1 + `</string>
 									<key>Address2</key>
-									<string>1</string>
+									<string>` + i.Address2 + `</string>
+									<key>Address3</key>
+									<string>` + i.Address3 + `</string>
 								</dict>
 								<key>Service Type</key>
 								<string>SVC_ENV_LIGHTING</string>
@@ -140,11 +144,11 @@ func switchText(i Input) string {
 							<key>Match Logic</key>
 							<string>Equal</string>
 							<key>RPMStateName</key>
-							<string>userDefined.SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>userDefined.SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>RPMStateType</key>
 							<string>RPMBasicStateName</string>
 							<key>State Name</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>State Scope</key>
 							<string>userDefined</string>
 							<key>State Type</key>
@@ -154,7 +158,7 @@ func switchText(i Input) string {
 							<key>scope</key>
 							<string>userDefined</string>
 							<key>stateName</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 						</dict>
 					</array>
 					<key>Then Actions</key>
@@ -171,7 +175,9 @@ func switchText(i Input) string {
 									<key>Address1</key>
 									<string>` + i.Address1 + `</string>
 									<key>Address2</key>
-									<string>1</string>
+									<string>` + i.Address2 + `</string>
+									<key>Address3</key>
+									<string>` + i.Address3 + `</string>
 								</dict>
 								<key>Service Type</key>
 								<string>SVC_ENV_LIGHTING</string>
@@ -190,11 +196,11 @@ func switchText(i Input) string {
 					<array>
 						<dict>
 							<key>RPMStateName</key>
-							<string>userDefined.SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>userDefined.SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>RPMStateType</key>
 							<string>RPMBasicStateName</string>
 							<key>State Name</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 							<key>State Scope</key>
 							<string>userDefined</string>
 							<key>State Type</key>
@@ -204,7 +210,7 @@ func switchText(i Input) string {
 							<key>scope</key>
 							<string>userDefined</string>
 							<key>stateName</key>
-							<string>SetDimmerLevel_1_` + i.Address1 + `</string>
+							<string>SetDimmerLevel_` + i.Address3 + `_` + i.Address2 + `_` + i.Address1 + `</string>
 						</dict>
 					</array>
 				</dict>
